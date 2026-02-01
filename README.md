@@ -2,98 +2,97 @@
 
 A robust Task Management System built with Django and Django REST Framework (DRF), featuring secure authentication via JWT, project collaboration, and task tracking.
 
-# Features
-Custom User Profiles: Extended user model with UUID identification, bio, and location.
+## Features
 
-Authentication: Secure login, registration, and logout using SimpleJWT with token blacklisting.
+- **Custom User Profiles**: Extended user model with UUID identification, bio, and location
+- **Authentication**: Secure login, registration, and logout using SimpleJWT with token blacklisting
+- **Project Management**:
+  - Create and manage projects with titles and descriptions
+  - Assign owners and multiple members to projects
+  - Role-based membership (Admin, Member)
+- **Task Tracking**:
+  - Organize tasks within projects
+  - Status management (To Do, In Progress, Done)
+  - Priority levels (Low, Medium, High)
+- **Advanced Filtering & Search**: Filter projects/tasks by owner, status, or priority, and search through titles and descriptions
+- **API Documentation**: Integrated Swagger and ReDoc for easy API exploration
 
-Project Management:
+## Tech Stack
 
-Create and manage projects with titles and descriptions.
+- **Backend**: Django 6.0
+- **API**: Django REST Framework
+- **Authentication**: SimpleJWT
+- **Documentation**: drf-yasg
+- **Database**: SQLite (Development)
 
-Assign owners and multiple members to projects.
+## Getting Started
 
-Role-based membership (Admin, Member).
+### Prerequisites
 
-Task Tracking:
+- Python 3.13+
+- Virtual environment (recommended)
 
-Organize tasks within projects.
+### Installation
 
-Status management (To Do, In Progress, Done).
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd tms
+   ```
 
-Priority levels (Low, Medium, High).
-
-Advanced Filtering & Search: Filter projects/tasks by owner, status, or priority, and search through titles and descriptions.
-
-API Documentation: Integrated Swagger and ReDoc for easy API exploration.
-
-# Tech Stack
-Backend: Django 6.0
-
-API: Django REST Framework
-
-Authentication: SimpleJWT
-
-Documentation: drf-yasg
-
-Database: SQLite (Development)
-
-
-# Getting Started
-Prerequisites
- Python 3.13+
- Virtual environment (recommended)
- 
-Installation
-1- Clone the repository:
-    git clone <repository-url>
-    cd tms
-
-2- Install dependencies:
+2. **Install dependencies**:
+   ```bash
    pip install -r requirements.txt
+   ```
 
-3- Run Migrations:
+3. **Run Migrations**:
+   ```bash
    python manage.py migrate
+   ```
 
-4- Create a Superuser:
+4. **Create a Superuser**:
+   ```bash
    python manage.py createsuperuser
+   ```
 
-5- Start the Server:
+5. **Start the Server**:
+   ```bash
    python manage.py runserver
+   ```
 
-# API Endpoints
+## API Endpoints
 
-Authentication
-POST /api/auth/register/ - Register a new user profile.
+### Authentication
 
-POST /api/auth/login/ - Obtain JWT access and refresh tokens.
+- `POST /api/auth/register/` - Register a new user profile
+- `POST /api/auth/login/` - Obtain JWT access and refresh tokens
+- `POST /api/auth/logout/` - Blacklist refresh token
+- `POST /api/auth/token/refresh/` - Refresh access token
 
-POST /api/auth/logout/ - Blacklist refresh token.
+### Board (Projects & Tasks)
 
-POST /api/auth/token/refresh/ - Refresh access token.
+- `GET /api/board/projects/` - List all projects (accessible to owners/members)
+- `POST /api/board/projects/` - Create a new project
+- `GET /api/board/projects/<uuid:pk>/` - Detailed project view
+- `GET /api/board/tasks/` - List tasks across accessible projects
+- `POST /api/board/tasks/` - Create a task within a project
 
-Board (Projects & Tasks)
-GET /api/board/projects/ - List all projects (accessible to owners/members).
+### Documentation
 
-POST /api/board/projects/ - Create a new project.
+- `GET /swagger/` - Swagger UI documentation
+- `GET /redoc/` - ReDoc documentation
 
-GET /api/board/projects/<uuid:pk>/ - Detailed project view.
+## Permission Logic
 
-GET /api/board/tasks/ - List tasks across accessible projects.
+- **Project Owner**: Full access to project and its tasks
+- **Project Admin**: Permissions granted via project membership
+- **Task Creator**: Can modify tasks they created
+- **Project Members**: View access to projects they belong to
 
-POST /api/board/tasks/ - Create a task within a project.
+## Contributing
 
-Documentation
-GET /swagger/ - Swagger UI documentation.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-GET /redoc/ - ReDoc documentation.
+## License
 
-# Permission Logic
-
-Project Owner: Full access to project and its tasks.
-
-Project Admin: Permissions granted via project membership.
-
-Task Creator: Can modify tasks they created.
-
-Project Members: View access to projects they belong to.
+This project is licensed under the MIT License - see the LICENSE file for details.
